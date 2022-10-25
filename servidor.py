@@ -1,3 +1,4 @@
+from crypt import methods
 from operator import methodcaller
 from flask import Flask, request, jsonify, render_template
 from werkzeug.utils import secure_filename
@@ -35,6 +36,13 @@ def modeloFile():
     file = open(path,'r')
     for line in file:
         print(line)
+    return jsonify({"resultado":"datos recibidos"})
+
+#procesar datos de entrega (request)
+@servidorWeb.route("/modelo", methods=["POST"])
+def model():
+    content = request.json
+    print(content)
     return jsonify({"resultado":"datos recibidos"})
 
 if  __name__ == '__main__':
