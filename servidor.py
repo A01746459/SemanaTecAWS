@@ -2,7 +2,7 @@ from operator import methodcaller
 from flask import Flask, request, jsonify, render_template
 from werkzeug.utils import secure_filename
 from joblib import load
-from numpy import np
+import numpy as np
 #operaciones en el sistema
 import os
 
