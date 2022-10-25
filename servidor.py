@@ -1,11 +1,14 @@
 from crypt import methods
 from operator import methodcaller
+from unittest import result
 from flask import Flask, request, jsonify, render_template
 from werkzeug.utils import secure_filename
 from joblib import load
 import numpy as np
 #operaciones en el sistema
 import os
+#cargar el modelo IA
+dt = load('modelo.joblib')
 
 #Generar el servidor en Flask (backend)
 servidorWeb = Flask(__name__)
@@ -21,8 +24,16 @@ def modeloForm():
     #procesar datos de entrada
     contenido = request.form
     print(contenido)
+
+    datosEntrada = np.array([8.40000,0.59000,0.29000,2.60000,0.10900,31.00000,119.00000,0.99801,
+    contenido['pH'],
+    contenido['sulfatos'],
+    contenido['alcohol']])
+    resultado = dt.predict(datosEntrada.reshape(1,-1))
+    return jsonify({"Resultado":str(resultado[0])})
+
     #los json en python son diccionarios, lo convertimos 
-    return jsonify({"resultado":"datos recibidos"})
+    #return jsonify({"resultado":"datos recibidos"})
 
 #procesar datos dl archivo y guardarlos en la ruta del servidor, imprimir las lineas
 @servidorWeb.route("/modeloFile", methods=["POST"])
