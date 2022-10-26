@@ -47,9 +47,9 @@ def modeloFile():
     file = open(path,'r')
     h = []
     for line in file:
-        h.append(int[line])
-
-    datosEntrada = np.array(h)
+        h.append(line)
+    hh = [int(x) for x in h]
+    datosEntrada = np.array(hh)
     resultado = dt.predict(datosEntrada.reshape(1,-1))
     return jsonify({"Resultado":str(resultado[0])})
     #return jsonify({"resultado":"datos recibidos"})
