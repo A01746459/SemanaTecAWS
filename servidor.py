@@ -45,9 +45,15 @@ def modeloFile():
 
     f.save(path)
     file = open(path,'r')
+    h = []
     for line in file:
-        print(line)
-    return jsonify({"resultado":"datos recibidos"})
+        h.append(int[line])
+
+    datosEntrada = np.array(h)
+    resultado = dt.predict(datosEntrada.reshape(1,-1))
+    return jsonify({"Resultado":str(resultado[0])})
+    #return jsonify({"resultado":"datos recibidos"})
+    #return jsonify({"Resultado":str(resultado[0])})
 
 #procesar datos de entrega (request)
 @servidorWeb.route("/modelo", methods=["POST"])
